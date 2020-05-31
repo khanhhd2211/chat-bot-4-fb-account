@@ -36,11 +36,11 @@ login({email: "hoangdangkhanh12c1@gmail.com", password: "Khanh2001"}, (err, api)
                 qs:{user_id:'IwD9nj32'} // or screen_name
             }, function (err, res, body) {
                 let searchForecasts = JSON.parse(body) 
-                if (!searchForecasts) {
-                  api.sendMessage('Không có dữ liệu về vị trí của bạn', sender)
-                  return;
-                }
                 let data = searchForecasts.forecasts[day]
+                  if (!data) {
+                    api.sendMessage('Không có dữ liệu về vị trí của bạn', sender)
+                    return;
+                  }
                 var date = new Date(data.date*1000 + 7*3600000);
                 api.sendMessage(`Vị Trí: ${searchForecasts.location.city}, ${searchForecasts.location.country}\nDate: ${date.toDateString()}\nTrạng thái: ${data.text}\nNhiệt độ: ${data.low}-${data.high}`, sender)
             })
