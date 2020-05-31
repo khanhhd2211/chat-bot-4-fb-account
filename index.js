@@ -14,16 +14,16 @@ login({email: "hoangdangkhanh12c1@gmail.com", password: "Khanh2001"}, (err, api)
         if (message.body) {
             text = message.body
             if (text === '/help') {
-              api.sendMessage('/hello\n/weather + location,country + day\n/goodbye', message.threadID)
+              api.sendMessage('/hello\n/weather-location,country-day\n/goodbye', message.threadID)
             } else if (text === '/hello') {
               api.sendMessage( 'Chào bạn! tôi là Kbot hân hạn được làm quen với bạn', message.threadID)
             } else if (text === '/goodbye') {
               api.sendMessage( 'Tạm biệt :3', message.threadID)
-            } else if (text.split(' ')[0] === '/weather') {
-              if (!text.split(' ')[2]) {
-                forecasts( 0, text.split(' ')[1], message.threadID)
+            } else if (text.split('-')[0] === '/weather') {
+              if (!text.split('-')[2]) {
+                forecasts( 0, text.split('-')[1].replace(/\s/g, ''), message.threadID)
               } else {
-                forecasts(parseInt(text.split(' ')[2]), text.split(' ')[1], message.threadID)
+                forecasts(parseInt(text.split('-')[2]), text.split('-')[1].replace(/\s/g, ''), message.threadID)
               }
             }
         }
