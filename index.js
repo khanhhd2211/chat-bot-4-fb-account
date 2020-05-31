@@ -46,11 +46,11 @@ login({email: "hoangdangkhanh12c1@gmail.com", password: "Khanh2001"}, (err, api)
             })
         }
     });
+    setInterval(() => {
+      request('http://hoangdangkhanhchatbot.herokuapp.com/',
+        null,
+        function(err, res, body) {
+          console.log(body)
+      })
+    }, 1000*25*60)
 });
-setInterval(() => {
-  request('http://hoangdangkhanhchatbot.herokuapp.com/',
-    null,
-    function(err, res, body) {
-      console.log(body)
-  })
-}, 1000*25*60)
