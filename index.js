@@ -1,5 +1,11 @@
-var login = require('facebook-chat-api')
-var request = require('request')
+const login = require('facebook-chat-api')
+const request = require('request')
+const express = require('express')
+const app = express();
+app.listen(process.env.PORT, () => {
+  console.log(`Runnning on port ${process.env.PORT}`);
+})
+app.get('/', (req, res) => res.send('Hello World!'))
 // Create simple echo bot
 login({email: "hoangdangkhanh12c1@gmail.com", password: "Khanh2001"}, (err, api) => {
     if(err) return console.error(err);
