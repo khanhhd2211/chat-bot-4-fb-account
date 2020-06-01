@@ -14,11 +14,11 @@ login({email: "hoangdangkhanh12c1@gmail.com", password: "Khanh2001"}, (err, api)
         if (message.body) {
             text = message.body
             if (text === '/help') {
-              api.sendMessage('/hello\n/weather-location,country\n/goodbye', message.threadID)
+              api.sendMessage('/hello\n/weather-location,country\n/bye', message.threadID)
             } else if (text === '/hello') {
-              api.sendMessage( 'Chào cậu! tớ là bé bot cute\n hân hạn được làm quen với c 😍', message.threadID)
+              api.sendMessage( 'Chào cậu! tớ là bé bot cute\nhân hạn được làm quen với c 😍', message.threadID)
             } else if (text === '/goodbye') {
-              api.sendMessage( 'Bye c😞', message.threadID)
+              api.sendMessage( 'Bye c 😞', message.threadID)
             } else if (text.split('-')[0] === '/weather') {
               if (!text.split('-')[1]) {
                 api.sendMessage('Cậu chưa nhập vị trí ạ 😠', message.threadID)
@@ -39,11 +39,11 @@ login({email: "hoangdangkhanh12c1@gmail.com", password: "Khanh2001"}, (err, api)
                 let { location, current_observation } = searchForecasts;
                 let { condition, astronomy, pubDate } = current_observation;
                   if (!location.city) {
-                    api.sendMessage('Tớ không tìm thấy thông tin gì về thời tiết chỗ c😓', sender)
+                    api.sendMessage('Tớ không tìm thấy thông tin gì về thời tiết chỗ c 😓', sender)
                     return;
                   }
                 var date = new Date(pubDate*1000 + 7*3600000);
-                api.sendMessage(`Đây c 👍\nVị Trí: ${location.city}, ${location.country}\nDate: ${date.toDateString()}\nTrạng thái: ${condition.text}\nNhiệt độ trung bình: ${condition.temperature}\n Sunrise: ${astronomy.sunrise}\n Sunset: ${astronomy.sunset}`, sender)
+                api.sendMessage(`Đây c 👍\nVị Trí: ${location.city}, ${location.country}\nDate: ${date.toDateString()}\nTrạng thái: ${condition.text}\nNhiệt độ trung bình: ${condition.temperature}\nSunrise: ${astronomy.sunrise}\nSunset: ${astronomy.sunset}`, sender)
             })
         }
     });
