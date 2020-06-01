@@ -10,7 +10,7 @@ function downImages(imgUrl, id) {
       });
     };
     
-    download(imgUrl, `google-${id}.png`, function(){
+    download(imgUrl, `image-${id}.png`, function(){
       console.log('done');
     });
 }
