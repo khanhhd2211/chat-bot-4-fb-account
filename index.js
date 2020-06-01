@@ -16,12 +16,12 @@ login({email: "hoangdangkhanh12c1@gmail.com", password: "Khanh2001"}, (err, api)
             if (text === '/help') {
               api.sendMessage('/hello\n/weather-location,country\n/goodbye', message.threadID)
             } else if (text === '/hello') {
-              api.sendMessage( 'Chào cậu! tớ là bé bot cute hân hạn được làm quen với c!! \uDE0D', message.threadID)
+              api.sendMessage( 'Chào cậu! tớ là bé bot cute hân hạn được làm quen với c :love:', message.threadID)
             } else if (text === '/goodbye') {
-              api.sendMessage( 'Bye c \uDE22', message.threadID)
+              api.sendMessage( 'Bye c :sad:', message.threadID)
             } else if (text.split('-')[0] === '/weather') {
               if (!text.split('-')[1]) {
-                api.sendMessage('Cậu chưa nhập vị trí ạ \uDE20', message.threadID)
+                api.sendMessage('Cậu chưa nhập vị trí ạ :angry:', message.threadID)
               } else {
                 forecasts(text.split('-')[1].replace(/\s/g, ''), message.threadID)
               }
@@ -39,11 +39,11 @@ login({email: "hoangdangkhanh12c1@gmail.com", password: "Khanh2001"}, (err, api)
                 let { location, current_observation } = searchForecasts;
                 let { condition, astronomy, pubDate } = current_observation;
                   if (!location.city) {
-                    api.sendMessage('Không có dữ liệu về vị trí của bạn', sender)
+                    api.sendMessage('Tớ không tìm thấy thông tin gì về thời tiết chỗ c:sad:', sender)
                     return;
                   }
                 var date = new Date(pubDate*1000 + 7*3600000);
-                api.sendMessage(`Đây c \uDE2E\nVị Trí: ${location.city}, ${location.country}\nDate: ${date.toDateString()}\nTrạng thái: ${condition.text}\nNhiệt độ trung bình: ${condition.temperature}\n Sunrise: ${astronomy.sunrise}\n Sunset: ${astronomy.sunset}`, sender)
+                api.sendMessage(`Đây c :like: \nVị Trí: ${location.city}, ${location.country}\nDate: ${date.toDateString()}\nTrạng thái: ${condition.text}\nNhiệt độ trung bình: ${condition.temperature}\n Sunrise: ${astronomy.sunrise}\n Sunset: ${astronomy.sunset}`, sender)
             })
         }
     });
