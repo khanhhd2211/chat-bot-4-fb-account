@@ -2,6 +2,7 @@ const login = require('facebook-chat-api')
 const request = require('request')
 const express = require('express')
 const moment = require('moment')
+const fs = require('fs')
 const app = express();
 app.listen(process.env.PORT, () => {
   console.log(`Runnning on port ${process.env.PORT}`);
@@ -15,11 +16,16 @@ login({email: "hoangdangkhanh12c1@gmail.com", password: "Khanh2001"}, (err, api)
         if (message.body) {
             text = message.body
             if (text === '/help') {
-              api.sendMessage('/hello\n/weather-location,country\n/bye', message.threadID)
+              api.sendMessage('/hello\n/weather-location,country\n/girl\n/bye', message.threadID)
             } else if (text === '/hello') {
               api.sendMessage( 'Chào cậu! tớ là bé bot cute\nhân hạn được làm quen với c 😍', message.threadID)
             } else if (text === '/bye') {
               api.sendMessage( 'Bye c 😞', message.threadID)
+            } else if (text === '/girl') {
+              api.sendMessage({
+                body: "Xinh hông 😊",
+                attachment: fs.createReadStream('./test.jpg')
+              }, message.threadID)
             } else if (text.split('-')[0] === '/weather') {
               if (!text.split('-')[1]) {
                 api.sendMessage('Cậu chưa nhập vị trí ạ 😠', message.threadID)
