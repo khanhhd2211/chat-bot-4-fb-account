@@ -22,10 +22,12 @@ login({email: "hoangdangkhanh12c1@gmail.com", password: "Khanh2001"}, (err, api)
             } else if (text === '/bye') {
               api.sendMessage( 'Bye c 😞', message.threadID)
             } else if (text === '/girl') {
-              api.sendMessage({
-                body: "Xinh hông 😊",
-                attachment: 'https://scontent.fhan9-1.fna.fbcdn.net/v/t1.0-9/97628734_3448353698511411_8342813993538158592_n.jpg?_nc_cat=109&_nc_sid=8024bb&_nc_ohc=NM7w01Sp-8QAX-jmYa-&_nc_ht=scontent.fhan9-1.fna&oh=863ba28b317c479cd9bb58742151ba89&oe=5EFC9BC5'
-              }, message.threadID)
+              request('https://scontent.fhan9-1.fna.fbcdn.net/v/t1.0-9/97628734_3448353698511411_8342813993538158592_n.jpg?_nc_cat=109&_nc_sid=8024bb&_nc_ohc=NM7w01Sp-8QAX-jmYa-&_nc_ht=scontent.fhan9-1.fna&oh=863ba28b317c479cd9bb58742151ba89&oe=5EFC9BC5', (err, res, body) => {
+                  api.sendMessage({
+                    body: "Xinh hông 😊",
+                    attachment: body
+                  }, message.threadID)
+              })
             } else if (text.split('-')[0] === '/weather') {
               if (!text.split('-')[1]) {
                 api.sendMessage('Cậu chưa nhập vị trí ạ 😠', message.threadID)
