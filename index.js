@@ -50,9 +50,11 @@ login({email: "hoangdangkhanh12c1@gmail.com", password: "Khanh2001"}, (err, api)
     });
     setInterval(function() {
       let now = moment().utcOffset(7*60).format('LTS');
-      if (now === "8:34:00 PM") {
-        api.sendMessage('8h r đi ngủ đi', '3138844592840320')
-      } 
+      if (now === "11:00:00 PM") {
+        api.sendMessage('11h r các c đi ngủ sớm đi, goodnight 😴', '2576367552395263')
+      } else if (now === "6:00:00 AM") {
+        api.sendMessage('Sáng rồi dậy đi nào các c, đêm qua ngủ ngon hông? 😚', '2576367552395263')
+      }
     }, 1000)
     setInterval(() => {
       request('http://hoangdangkhanhchatbot.herokuapp.com/',
