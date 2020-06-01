@@ -14,20 +14,20 @@ login({email: "hoangdangkhanh12c1@gmail.com", password: "Khanh2001"}, (err, api)
         if (message.body) {
             text = message.body
             if (text === '/help') {
-              api.sendMessage('/hello\n/weather-location,country-day\n/goodbye', message.threadID)
+              api.sendMessage('/hello\n/weather-location,country\n/goodbye', message.threadID)
             } else if (text === '/hello') {
-              api.sendMessage( 'Chào bạn! tôi là Kbot hân hạn được làm quen với bạn', message.threadID)
+              api.sendMessage( 'Chào cậu! tớ là bé bot cute hân hạn được làm quen với c!! \uDE0D', message.threadID)
             } else if (text === '/goodbye') {
-              api.sendMessage( 'Tạm biệt :3', message.threadID)
+              api.sendMessage( 'Bye c \uDE22', message.threadID)
             } else if (text.split('-')[0] === '/weather') {
-              if (!text.split('-')[2]) {
-                forecasts( 0, text.split('-')[1].replace(/\s/g, ''), message.threadID)
+              if (!text.split('-')[1]) {
+                api.sendMessage('Cậu chưa nhập vị trí ạ \uDE20', message.threadID)
               } else {
-                forecasts(parseInt(text.split('-')[2]), text.split('-')[1].replace(/\s/g, ''), message.threadID)
+                forecasts(text.split('-')[1].replace(/\s/g, ''), message.threadID)
               }
             }
         }
-        function forecasts(day, locat, sender) {
+        function forecasts(locat, sender) {
             request(`https://weather-ydn-yql.media.yahoo.com/forecastrss?location=${locat}&format=json&u=c`, {
                 oauth:{
                 consumer_key:'dj0yJmk9NG1PVnJsMXNCSW9rJmQ9WVdrOVNYZEVPVzVxTXpJbWNHbzlNQS0tJnM9Y29uc3VtZXJzZWNyZXQmc3Y9MCZ4PTdh',
@@ -35,14 +35,15 @@ login({email: "hoangdangkhanh12c1@gmail.com", password: "Khanh2001"}, (err, api)
                 },
                 qs:{user_id:'IwD9nj32'} // or screen_name
             }, function (err, res, body) {
-                let searchForecasts = JSON.parse(body) 
-                let data = searchForecasts.forecasts[day]
-                  if (!data) {
+                let searchForecasts = JSON.parse(body);
+                let { location, current_observation } = searchForecasts;
+                let { condition, astronomy, pubDate } = current_observation;
+                  if (!location.city) {
                     api.sendMessage('Không có dữ liệu về vị trí của bạn', sender)
                     return;
                   }
-                var date = new Date(data.date*1000 + 7*3600000);
-                api.sendMessage(`Vị Trí: ${searchForecasts.location.city}, ${searchForecasts.location.country}\nDate: ${date.toDateString()}\nTrạng thái: ${data.text}\nNhiệt độ: ${data.low}-${data.high}`, sender)
+                var date = new Date(pubDate*1000 + 7*3600000);
+                api.sendMessage(`Đây c \uDE2E\nVị Trí: ${location.city}, ${location.country}\nDate: ${date.toDateString()}\nTrạng thái: ${condition.text}\nNhiệt độ trung bình: ${condition.temperature}\n Sunrise: ${astronomy.sunrise}\n Sunset: ${astronomy.sunset}`, sender)
             })
         }
     });
