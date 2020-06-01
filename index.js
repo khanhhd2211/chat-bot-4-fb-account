@@ -17,7 +17,7 @@ login({email: "hoangdangkhanh12c1@gmail.com", password: "Khanh2001"}, (err, api)
               api.sendMessage('/hello\n/weather-location,country\n/bye', message.threadID)
             } else if (text === '/hello') {
               api.sendMessage( 'Chào cậu! tớ là bé bot cute\nhân hạn được làm quen với c 😍', message.threadID)
-            } else if (text === '/goodbye') {
+            } else if (text === '/bye') {
               api.sendMessage( 'Bye c 😞', message.threadID)
             } else if (text.split('-')[0] === '/weather') {
               if (!text.split('-')[1]) {
