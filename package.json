@@ -12,6 +12,7 @@
   "dependencies": {
     "express": "^4.17.1",
     "facebook-chat-api": "^1.8.0",
+    "moment": "^2.26.0",
     "request": "^2.88.2"
   }
 }

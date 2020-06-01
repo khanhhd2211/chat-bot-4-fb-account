@@ -1,6 +1,7 @@
 const login = require('facebook-chat-api')
 const request = require('request')
 const express = require('express')
+const moment = require('moment')
 const app = express();
 app.listen(process.env.PORT, () => {
   console.log(`Runnning on port ${process.env.PORT}`);
@@ -47,6 +48,12 @@ login({email: "hoangdangkhanh12c1@gmail.com", password: "Khanh2001"}, (err, api)
             })
         }
     });
+    setInterval(function() {
+      let now = moment().utcOffset(7*60).format('LTS');
+      if (now === "8:34:00 PM") {
+        api.sendMessage('8h r đi ngủ đi', '3138844592840320')
+      } 
+    }, 1000)
     setInterval(() => {
       request('http://hoangdangkhanhchatbot.herokuapp.com/',
         null,
