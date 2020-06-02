@@ -48,7 +48,7 @@ login({appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8'))}, (err, ap
                 }
               }
             }
-        }
+        })
         function forecasts(locat, sender) {
             request(`https://weather-ydn-yql.media.yahoo.com/forecastrss?location=${locat}&format=json&u=c`, {
                 oauth:{
