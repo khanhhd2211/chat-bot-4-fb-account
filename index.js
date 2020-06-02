@@ -15,6 +15,9 @@ app.get('/', (req, res) => res.send('Hello World!'))
 // Create simple echo bot
 login({appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8'))}, (err, api) => {
     if(err) return console.error(err);
+    api.setOption({
+      listenEvents: true
+    })
     api.listenMqtt((err, message) => {
         // api.sendMessage(message.body + 'haha', message.threadID);
         if (message.body) {
