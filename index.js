@@ -18,6 +18,9 @@ login({appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8'))}, (err, ap
     api.listenMqtt((err, message) => {
         // api.sendMessage(message.body + 'haha', message.threadID);
         if (message.body) {
+            api.handleMessageRequest(message.threadID, true, function() {
+              api.sendMessage( 'Chào cậu! tớ là bé bot cute\nhân hạn được làm quen với c 😍', message.threadID)
+            })
             text = message.body
             if (text === '/help') {
               api.sendMessage('/hello\n/weather-location,country\n/girl\n/bye', message.threadID)
