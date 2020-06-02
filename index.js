@@ -15,13 +15,9 @@ app.get('/', (req, res) => res.send('Hello World!'))
 // Create simple echo bot
 login({appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8'))}, (err, api) => {
     if(err) return console.error(err);
-    api.setOption({
-      listenEvents: true
-    })
     api.listenMqtt((err, message) => {
         // api.sendMessage(message.body + 'haha', message.threadID);
         if (message.body) {
-            api.handleMessageRequest(message.threadID, true, function() {
               text = message.body
               if (text === '/help') {
                 api.sendMessage('/hello\n/weather-location,country\n/girl\n/bye', message.threadID)
@@ -51,7 +47,7 @@ login({appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8'))}, (err, ap
                   forecasts(text.split('-')[1].replace(/\s/g, ''), message.threadID)
                 }
               }
-            })
+            }
         }
         function forecasts(locat, sender) {
             request(`https://weather-ydn-yql.media.yahoo.com/forecastrss?location=${locat}&format=json&u=c`, {
