@@ -26,23 +26,26 @@ login({appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8'))}, (err, ap
             } else if (text === '/bye') {
               api.sendMessage( 'Bye c 😞', message.threadID)
             } else if (text === '/girl') {
-              if ( Math.round(Math.random()*4) === 0) {
-                api.sendMessage('Dm t đ xinh à, suốt ngày toàn đi xem gái gú 😠', message.threadID)
-                return;
+              async function girl() {
+                if ( Math.round(Math.random()*4) === 0) {
+                  api.sendMessage('Dm t đ xinh à, ngắm t thì đ ngắm suốt ngày toàn đi xem gái gú 😠', message.threadID)
+                  return;
+                }
+                let photos = await getPhotos('1297848546895281', 15);
+                await downImages(photos[Math.round(Math.random()*(photos.length - 1))], message.threadID)
+                api.sendMessage({
+                  body: "Xinh hông 😊",
+                  attachment: fs.createReadStream(`./image-${message.threadID}.png`)
+                }, message.threadID)
+                fs.unlinkSync(`image-${message.threadID}.png`)
+              } else if (text.split('-')[0] === '/weather') {
+                if (!text.split('-')[1]) {
+                  api.sendMessage('Cậu chưa nhập vị trí ạ 😠', message.threadID)
+                } else {
+                  forecasts(text.split('-')[1].replace(/\s/g, ''), message.threadID)
+                }
               }
-              let photos = await getPhotos('1297848546895281', 15);
-              await downImages(photos[Math.round(Math.random()*(photos.length - 1))], message.threadID)
-              api.sendMessage({
-                body: "Xinh hông 😊",
-                attachment: fs.createReadStream(`./image-${message.threadID}.png`)
-              }, message.threadID)
-              fs.unlinkSync(`image-${message.threadID}.png`)
-            } else if (text.split('-')[0] === '/weather') {
-              if (!text.split('-')[1]) {
-                api.sendMessage('Cậu chưa nhập vị trí ạ 😠', message.threadID)
-              } else {
-                forecasts(text.split('-')[1].replace(/\s/g, ''), message.threadID)
-              }
+              girl()
             }
         }
         function forecasts(locat, sender) {
