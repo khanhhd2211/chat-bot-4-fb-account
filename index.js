@@ -38,14 +38,14 @@ login({appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8'))}, (err, ap
                   attachment: fs.createReadStream(`./image-${message.threadID}.png`)
                 }, message.threadID)
                 fs.unlinkSync(`image-${message.threadID}.png`)
-              } else if (text.split('-')[0] === '/weather') {
-                if (!text.split('-')[1]) {
-                  api.sendMessage('Cậu chưa nhập vị trí ạ 😠', message.threadID)
-                } else {
-                  forecasts(text.split('-')[1].replace(/\s/g, ''), message.threadID)
-                }
+                girl()
               }
-              girl()
+            } else if (text.split('-')[0] === '/weather') {
+              if (!text.split('-')[1]) {
+                api.sendMessage('Cậu chưa nhập vị trí ạ 😠', message.threadID)
+              } else {
+                forecasts(text.split('-')[1].replace(/\s/g, ''), message.threadID)
+              }
             }
         }
         function forecasts(locat, sender) {
