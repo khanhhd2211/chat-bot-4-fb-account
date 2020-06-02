@@ -27,7 +27,7 @@ login({appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8'))}, (err, ap
               api.sendMessage( 'Bye c 😞', message.threadID)
             } else if (text === '/girl') {
               request('https://scontent.fhan9-1.fna.fbcdn.net/v/t1.0-9/97628734_3448353698511411_8342813993538158592_n.jpg?_nc_cat=109&_nc_sid=8024bb&_nc_ohc=NM7w01Sp-8QAX-jmYa-&_nc_ht=scontent.fhan9-1.fna&oh=863ba28b317c479cd9bb58742151ba89&oe=5EFC9BC5', async (err, res, body) => {
-                  let photos = await getPhotos('1297848546895281', 10);
+                  let photos = await getPhotos('1297848546895281', 30);
                   downImages(photos[Math.round(Math.random()*(photos.length - 1))], message.threadID)
                   api.sendMessage({
                     body: "Xinh hông 😊",
