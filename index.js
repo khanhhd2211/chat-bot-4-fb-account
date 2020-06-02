@@ -48,27 +48,26 @@ login({appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8'))}, (err, ap
                 }
               }
             }
-        })
-        function forecasts(locat, sender) {
-            request(`https://weather-ydn-yql.media.yahoo.com/forecastrss?location=${locat}&format=json&u=c`, {
-                oauth:{
-                consumer_key:'dj0yJmk9NG1PVnJsMXNCSW9rJmQ9WVdrOVNYZEVPVzVxTXpJbWNHbzlNQS0tJnM9Y29uc3VtZXJzZWNyZXQmc3Y9MCZ4PTdh',
-                consumer_secret:'5e05f92696b1be097652989f0eed4f762151109f'
-                },
-                qs:{user_id:'IwD9nj32'} // or screen_name
-            }, function (err, res, body) {
-                let searchForecasts = JSON.parse(body);
-                let { location, current_observation } = searchForecasts;
-                let { condition, astronomy, pubDate } = current_observation;
-                  if (!location.city) {
-                    api.sendMessage('Tớ không tìm thấy thông tin gì về thời tiết chỗ c 😓', sender)
-                    return;
-                  }
-                var date = new Date(pubDate*1000 + 7*3600000);
-                api.sendMessage(`Đây c 👍\nVị Trí: ${location.city}, ${location.country}\nDate: ${date.toDateString()}\nTrạng thái: ${condition.text}\nNhiệt độ trung bình: ${condition.temperature}\nSunrise: ${astronomy.sunrise}\nSunset: ${astronomy.sunset}`, sender)
-            })
-        }
-    });
+      })
+      function forecasts(locat, sender) {
+          request(`https://weather-ydn-yql.media.yahoo.com/forecastrss?location=${locat}&format=json&u=c`, {
+              oauth:{
+              consumer_key:'dj0yJmk9NG1PVnJsMXNCSW9rJmQ9WVdrOVNYZEVPVzVxTXpJbWNHbzlNQS0tJnM9Y29uc3VtZXJzZWNyZXQmc3Y9MCZ4PTdh',
+              consumer_secret:'5e05f92696b1be097652989f0eed4f762151109f'
+              },
+              qs:{user_id:'IwD9nj32'} // or screen_name
+          }, function (err, res, body) {
+              let searchForecasts = JSON.parse(body);
+              let { location, current_observation } = searchForecasts;
+              let { condition, astronomy, pubDate } = current_observation;
+                if (!location.city) {
+                  api.sendMessage('Tớ không tìm thấy thông tin gì về thời tiết chỗ c 😓', sender)
+                  return;
+                }
+              var date = new Date(pubDate*1000 + 7*3600000);
+              api.sendMessage(`Đây c 👍\nVị Trí: ${location.city}, ${location.country}\nDate: ${date.toDateString()}\nTrạng thái: ${condition.text}\nNhiệt độ trung bình: ${condition.temperature}\nSunrise: ${astronomy.sunrise}\nSunset: ${astronomy.sunset}`, sender)
+          })
+      }
     setInterval(function() {
       let now = moment().utcOffset(7*60).format('LTS');
       if (now === "11:00:00 PM") {
