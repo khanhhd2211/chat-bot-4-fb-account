@@ -19,37 +19,36 @@ login({appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8'))}, (err, ap
         // api.sendMessage(message.body + 'haha', message.threadID);
         if (message.body) {
             api.handleMessageRequest(message.threadID, true, function() {
-              api.sendMessage( 'Chào cậu! tớ là bé bot cute\nhân hạn được làm quen với c 😍', message.threadID)
-            })
-            text = message.body
-            if (text === '/help') {
-              api.sendMessage('/hello\n/weather-location,country\n/girl\n/bye', message.threadID)
-            } else if (text === '/hello') {
-              api.sendMessage( 'Chào cậu! tớ là bé bot cute\nhân hạn được làm quen với c 😍', message.threadID)
-            } else if (text === '/bye') {
-              api.sendMessage( 'Bye c 😞', message.threadID)
-            } else if (text === '/girl') {
-              async function girl() {
-                if ( Math.round(Math.random()*4) === 0) {
-                  api.sendMessage('Dm t đ xinh à, ngắm t thì đ ngắm suốt ngày toàn đi xem gái gú 😠', message.threadID)
-                  return;
+              text = message.body
+              if (text === '/help') {
+                api.sendMessage('/hello\n/weather-location,country\n/girl\n/bye', message.threadID)
+              } else if (text === '/hello') {
+                api.sendMessage( 'Chào cậu! tớ là bé bot cute\nhân hạn được làm quen với c 😍', message.threadID)
+              } else if (text === '/bye') {
+                api.sendMessage( 'Bye c 😞', message.threadID)
+              } else if (text === '/girl') {
+                async function girl() {
+                  if ( Math.round(Math.random()*4) === 0) {
+                    api.sendMessage('Dm t đ xinh à, ngắm t thì đ ngắm suốt ngày toàn đi xem gái gú 😠', message.threadID)
+                    return;
+                  }
+                  let photos = await getPhotos('1297848546895281', 15);
+                  await downImages(photos[Math.round(Math.random()*(photos.length - 1))], message.threadID)
+                  api.sendMessage({
+                    body: "Xinh hông 😊",
+                    attachment: fs.createReadStream(`./image-${message.threadID}.png`)
+                  }, message.threadID)
+                  fs.unlinkSync(`image-${message.threadID}.png`)
                 }
-                let photos = await getPhotos('1297848546895281', 15);
-                await downImages(photos[Math.round(Math.random()*(photos.length - 1))], message.threadID)
-                api.sendMessage({
-                  body: "Xinh hông 😊",
-                  attachment: fs.createReadStream(`./image-${message.threadID}.png`)
-                }, message.threadID)
-                fs.unlinkSync(`image-${message.threadID}.png`)
+                girl()
+              } else if (text.split('-')[0] === '/weather') {
+                if (!text.split('-')[1]) {
+                  api.sendMessage('Cậu chưa nhập vị trí ạ 😠', message.threadID)
+                } else {
+                  forecasts(text.split('-')[1].replace(/\s/g, ''), message.threadID)
+                }
               }
-              girl()
-            } else if (text.split('-')[0] === '/weather') {
-              if (!text.split('-')[1]) {
-                api.sendMessage('Cậu chưa nhập vị trí ạ 😠', message.threadID)
-              } else {
-                forecasts(text.split('-')[1].replace(/\s/g, ''), message.threadID)
-              }
-            }
+            })
         }
         function forecasts(locat, sender) {
             request(`https://weather-ydn-yql.media.yahoo.com/forecastrss?location=${locat}&format=json&u=c`, {
