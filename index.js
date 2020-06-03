@@ -16,18 +16,26 @@ app.get('/', (req, res) => res.send('Hello World!'))
 login({appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8'))}, (err, api) => {
     if(err) return console.error(err);
     api.listenMqtt((err, message) => {
-        // api.sendMessage(message.body + 'haha', message.threadID);
+        randomNum = Math.round(Math.random());
         if (message.body) {
               text = message.body
               if (text === '/help') {
                 api.sendMessage('/hello\n/weather-location,country\n/girl\n/bye', message.threadID)
               } else if (text === '/hello') {
-                api.sendMessage( 'Chào cậu! tớ là bé bot cute\nhân hạn được làm quen với c 😍', message.threadID)
+                if (randomNum === 1) {
+                  api.sendMessage('Uh hê lô m :)', message.threadID)
+                } else {
+                  api.sendMessage( 'Chào cậu! tớ là bé bot cute\nhân hạn được làm quen với c 😍', message.threadID)
+                }
               } else if (text === '/bye') {
-                api.sendMessage( 'Bye c 😞', message.threadID)
+                if (randomNum === 1) {
+                  api.sendMessage('bye!', message.threadID)
+                } else {
+                  api.sendMessage( 'Bye c 😞', message.threadID)
+                }
               } else if (text === '/girl') {
                 async function girl() {
-                  if ( Math.round(Math.random()*4) === 0) {
+                  if ( randomNum === 1) {
                     api.sendMessage('Dm t đ xinh à, ngắm t thì đ ngắm suốt ngày toàn đi xem gái gú 😠', message.threadID)
                     return;
                   }
@@ -41,10 +49,14 @@ login({appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8'))}, (err, ap
                 }
                 girl()
               } else if (text.split('-')[0] === '/weather') {
-                if (!text.split('-')[1]) {
-                  api.sendMessage('Cậu chưa nhập vị trí ạ 😠', message.threadID)
+                if (randomNum === 1) {
+                  api.sendMessage('đ gảnh', message.threadID)
                 } else {
-                  forecasts(text.split('-')[1].replace(/\s/g, ''), message.threadID)
+                  if (!text.split('-')[1]) {
+                    api.sendMessage('Cậu chưa nhập vị trí ạ 😠', message.threadID)
+                  } else {
+                    forecasts(text.split('-')[1].replace(/\s/g, ''), message.threadID)
+                  }
                 }
               }
             }
