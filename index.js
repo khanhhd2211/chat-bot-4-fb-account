@@ -16,7 +16,7 @@ app.get('/', (req, res) => res.send('Hello World!'))
 login({appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8'))}, (err, api) => {
     if(err) return console.error(err);
     api.listenMqtt((err, message) => {
-        randomNum = Math.round(Math.random());
+        let randomNum = Math.round(Math.random());
         if (message.body) {
               text = message.body
               if (text === '/help') {
@@ -81,11 +81,20 @@ login({appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8'))}, (err, ap
           })
       }
     setInterval(function() {
+      let randomNum2 = Math.round(Math.random());
       let now = moment().utcOffset(7*60).format('LTS');
       if (now === "11:00:00 PM") {
-        api.sendMessage('11h r các c đi ngủ sớm đi, goodnight 😴', '2576367552395263')
+        if (randomNum2 === 1) {
+          api.sendMessage('Dm khuya r ngủ đ ngủ thức miết, đi ngủ đi mấy thk l :)', '2576367552395263')
+        } else {
+          api.sendMessage('11h r các c đi ngủ sớm đi, goodnight 😴', '2576367552395263')
+        }
       } else if (now === "6:00:00 AM") {
-        api.sendMessage('Sáng rồi dậy đi nào các c, đêm qua ngủ ngon hông? 😚', '2576367552395263')
+        if (randomNum2 === 1) {
+          api.sendMessage('Mặt trời mọc tới đít r dậy đi dm -_-', '2576367552395263')
+        } else {
+          api.sendMessage('Sáng rồi dậy đi nào các c, đêm qua ngủ ngon hông? 😚', '2576367552395263')
+        }
       }
     }, 1000)
     setInterval(() => {
