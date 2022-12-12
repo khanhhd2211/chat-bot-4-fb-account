@@ -10,7 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "facebook-chat-api": "^1.8.0",
     "moment": "^2.26.0",
     "request": "^2.88.2",
